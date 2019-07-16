@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+const argparse = require('argparse').ArgumentParser;
+
+const crawljs = require('../src/index.js');
+const pkg = require('../package.json');
+
+const parser = new argparse({
+  version: pkg.version,
+  addHelp: true,
+  description: 'Save the page for later',
+});
+
+parser.addArgument(['--pdf'], {
+  defaultValue: true,
+  help: 'Save as PDF format',
+});
+
+parser.addArgument(['--raw'], {
+  defaultValue: true,
+  help: 'Save RAW HTML',
+});
+
+parser.addArgument('page', {
+  help: 'Name of the page to be crawled',
+});
+
+const args = parser.parseArgs();
+crawljs(args);
